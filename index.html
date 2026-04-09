@@ -371,28 +371,9 @@ body {
    — Shown only in editor / draft view; hidden when empty
    ============================================================ */
 .si-special {
-  border: 2px dashed rgba(183,18,52,.35);
-  border-radius: 3px;
-  padding: 24px 28px;
-  margin-top: 40px;
-  background: rgba(183,18,52,.03);
+  display: none; /* Editor-only — never publishes to live page */
 }
-.si-special-label {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  color: var(--crimson);
-  opacity: .6;
-  margin-bottom: 8px;
-}
-.si-special-inner {
-  font-size: 14px;
-  color: rgba(88,69,40,.5);
-  font-style: italic;
-  line-height: 1.6;
-}
-/* Hide the entire special block when it contains only the placeholder comment */
+/* si-special label/inner styles omitted — block is hidden */
 .si-special:empty { display: none; }
 
 /* ============================================================
