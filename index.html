@@ -4,959 +4,761 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Story Inventory — Davis Federal Credit Union</title>
-
-<!-- FONTS: DM Serif Display (headings) + DM Sans (body) via Google Fonts CDN -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-
 <style>
-/* ============================================================
-   RESET + BASE
-   ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --crimson:#B71234;--gold:#BD8A5E;--ink:#1A1008;
+  --parchment:#FEFAF4;--sand:#F2EAD8;
+  --warm-brown:#4A3520;--mid-brown:#584528;--light-brown:#8A6A45;
+  --off-white:rgba(250,246,240,0.72);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--parchment);color:var(--ink);-webkit-font-smoothing:antialiased;}
 
-:root {
-  --crimson:    #B71234;
-  --gold:       #BD8A5E;
-  --ink:        #1A1008;
-  --parchment:  #FEFAF4;
-  --sand:       #F2EAD8;
-  --warm-brown: #4A3520;
-  --mid-brown:  #584528;
-  --light-brown:#8A6A45;
-  --off-white:  rgba(250,246,240,0.72);
-}
+/* HERO */
+.si-hero{border-top:6px solid var(--crimson);padding:72px 120px 60px;background:var(--parchment);}
+.si-kicker{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.si-kicker-line{width:40px;height:1px;background:var(--crimson);flex-shrink:0;}
+.si-kicker-text{font-size:10px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--crimson);}
+.si-hero h1{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(48px,5.5vw,76px);line-height:1.0;color:var(--ink);font-weight:400;margin-bottom:4px;}
+.si-hero h1 em{font-style:italic;color:var(--gold);}
+.si-hero-sub{font-size:clamp(15px,1.8vw,18px);color:var(--warm-brown);font-weight:300;margin:20px 0 36px;max-width:580px;line-height:1.7;}
+.si-hero-rule{border:none;border-top:1px solid rgba(88,69,40,.2);margin:0 0 24px;}
+.si-meta{display:flex;gap:48px;flex-wrap:wrap;}
+.si-meta-item label{display:block;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--light-brown);margin-bottom:4px;}
+.si-meta-item span{font-family:'DM Serif Display',serif;font-size:16px;color:var(--mid-brown);font-style:italic;}
 
-html { scroll-behavior: smooth; }
+/* ACCENT BARS */
+.si-red-bar{height:7px;background:var(--crimson);}
+.si-green-bar{height:4px;background:#008542;opacity:.45;}
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--parchment);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-}
+/* TABLE OF CONTENTS */
+.si-index{background:var(--ink);padding:48px 120px;}
+.si-index-title{font-family:'DM Serif Display',serif;font-size:13px;font-style:italic;color:var(--gold);margin-bottom:28px;}
+.si-index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.si-idx-row{display:flex;align-items:baseline;gap:12px;padding:10px 16px 10px 0;border-bottom:1px solid rgba(189,138,94,.14);text-decoration:none;cursor:pointer;transition:background .15s;}
+.si-idx-row:hover{background:rgba(183,18,52,.1);}
+.si-idx-row:hover .si-idx-l{color:var(--parchment);}
+.si-idx-n{font-size:10px;font-weight:500;color:var(--crimson);min-width:22px;letter-spacing:.05em;}
+.si-idx-l{font-size:12.5px;color:rgba(250,246,240,.65);font-weight:300;}
 
-/* ============================================================
-   HERO / COVER
-   ============================================================ */
-.si-hero {
-  border-top: 6px solid var(--crimson);
-  padding: 72px 120px 60px;
-  background: var(--parchment);
-}
+/* SPACERS */
+.si-ch-spacer{height:96px;background:var(--parchment);}
+.si-ch-spacer.dark{background:var(--ink);}
+.si-ch-spacer.sand{background:var(--sand);}
 
-.si-kicker {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.si-kicker-line {
-  width: 40px; height: 1px;
-  background: var(--crimson);
-  flex-shrink: 0;
-}
-.si-kicker-text {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: .32em;
-  text-transform: uppercase;
-  color: var(--crimson);
-}
+/* CHAPTER SECTIONS */
+.si-ch{padding:48px 120px;}
+.si-ch.cream{background:var(--parchment);}
+.si-ch.sand{background:var(--sand);}
+.si-ch-num{display:inline-block;background:var(--crimson);color:#fff;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;letter-spacing:.2em;padding:8px 20px;border-radius:2px;margin-bottom:12px;}
+.si-ch h2{font-family:'DM Serif Display',serif;font-size:clamp(39px,4.55vw,62px);color:var(--ink);font-weight:400;margin-bottom:32px;line-height:1.1;scroll-margin-top:24px;}
+.si-ch h2 a{color:inherit;text-decoration:none;border-bottom:2px solid transparent;transition:border-color .2s;}
+.si-ch h2 a:hover{border-bottom-color:var(--crimson);}
+.si-ch h3{font-family:'DM Serif Display',serif;font-size:clamp(22px,2.4vw,30px);color:var(--ink);font-weight:400;margin:32px 0 12px;line-height:1.2;}
 
-.si-hero h1 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: clamp(48px, 5.5vw, 76px);
-  line-height: 1.0;
-  color: var(--ink);
-  font-weight: 400;
-  margin-bottom: 4px;
-}
-.si-hero h1 em {
-  font-style: italic;
-  color: var(--gold);
-}
+/* TWO-COLUMN LAYOUTS */
+.si-two{display:grid;gap:52px;align-items:start;}
+.si-two.one-img{grid-template-columns:1fr 360px;}
+.si-two.two-img{grid-template-columns:1fr 1fr;}
+.si-two.no-img{grid-template-columns:1fr;}
 
-.si-hero-sub {
-  font-size: clamp(15px, 1.8vw, 18px);
-  color: var(--warm-brown);
-  font-weight: 300;
-  margin: 20px 0 36px;
-  max-width: 580px;
-  line-height: 1.7;
-}
+/* BODY TEXT */
+.si-body{font-size:clamp(16px,1.6vw,18px);line-height:1.9;color:var(--warm-brown);font-weight:300;}
+.si-body p+p{margin-top:16px;}
+.si-body strong{font-weight:500;color:#2A1A0E;}
+.si-body ul{list-style:none;padding-left:0;margin:14px 0;}
+.si-body ul li{padding:5px 0 5px 20px;position:relative;}
+.si-body ul li::before{content:'—';position:absolute;left:0;color:var(--crimson);}
+.si-body ul li em{color:var(--mid-brown);font-style:italic;}
 
-.si-hero-rule {
-  border: none;
-  border-top: 1px solid rgba(88,69,40,.2);
-  margin: 0 0 24px;
-}
+/* CHARACTER CARD */
+.si-character{display:grid;grid-template-columns:1fr 220px;gap:36px;align-items:start;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(88,69,40,.12);}
+.si-character:last-child{border-bottom:none;padding-bottom:0;}
+.si-character-text h3{margin-top:0;}
+.si-character-score{font-size:13px;color:var(--light-brown);font-style:italic;margin-bottom:12px;}
+.si-character-img img{width:100%;border-radius:2px;display:block;object-fit:cover;aspect-ratio:3/4;}
 
-.si-meta {
-  display: flex;
-  gap: 48px;
-  flex-wrap: wrap;
-}
-.si-meta-item label {
-  display: block;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--light-brown);
-  margin-bottom: 4px;
-}
-.si-meta-item span {
-  font-family: 'DM Serif Display', serif;
-  font-size: 16px;
-  color: var(--mid-brown);
-  font-style: italic;
-}
+/* IMAGE COLUMN */
+.si-img-col{display:flex;flex-direction:column;gap:20px;}
+.si-photo{width:100%;display:block;object-fit:cover;border-radius:2px;}
+.si-photo.tall{aspect-ratio:3/4;}
+.si-photo.wide{aspect-ratio:16/9;}
+.si-photo.square{aspect-ratio:1/1;}
+.si-caption{font-size:13px;color:var(--light-brown);font-style:italic;line-height:1.5;border-left:2px solid var(--gold);padding-left:10px;margin-top:6px;}
 
-/* ============================================================
-   RED ACCENT BAR
-   ============================================================ */
-.si-red-bar  { height: 7px; background: var(--crimson); }
-.si-green-bar { height: 4px; background: #008542; opacity: .45; }
+/* FULL-WIDTH IMAGE */
+.si-full-img{margin:32px 0;}
+.si-full-img img{width:100%;display:block;border-radius:2px;}
 
-/* ============================================================
-   TABLE OF CONTENTS (dark panel)
-   ============================================================ */
-.si-index {
-  background: var(--ink);
-  padding: 48px 120px;
-}
-.si-index-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 13px;
-  font-style: italic;
-  color: var(--gold);
-  margin-bottom: 28px;
-}
-.si-index-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-}
-.si-idx-row {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 10px 16px 10px 0;
-  border-bottom: 1px solid rgba(189,138,94,.14);
-  text-decoration: none;
-  cursor: pointer;
-  transition: background .15s;
-}
-.si-idx-row:hover { background: rgba(183,18,52,.1); }
-.si-idx-row:hover .si-idx-l { color: var(--parchment); }
-.si-idx-n {
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--crimson);
-  min-width: 22px;
-  letter-spacing: .05em;
-}
-.si-idx-l {
-  font-size: 12.5px;
-  color: rgba(250,246,240,.65);
-  font-weight: 300;
-}
+/* INLINE FLOAT IMAGE */
+.si-float-right{float:right;width:280px;margin:0 0 24px 36px;}
+.si-float-right img{width:100%;display:block;border-radius:2px;}
+.si-clearfix::after{content:"";display:table;clear:both;}
 
-/* ============================================================
-   CHAPTER SPACERS
-   ============================================================ */
-.si-ch-spacer        { height: 96px; background: var(--parchment); }
-.si-ch-spacer.dark   { background: var(--ink); }
-.si-ch-spacer.sand   { background: var(--sand); }
+/* CALLOUT BOXES */
+.si-callout{background:var(--crimson);padding:44px 52px;border-radius:2px;margin-top:24px;}
+.si-img-col .si-callout{margin-top:20px;flex-shrink:0;}
+.si-callout p{font-family:'DM Serif Display',serif;font-size:23px;font-style:italic;color:#fff;line-height:1.6;padding:0;}
 
-/* ============================================================
-   CHAPTER SECTIONS — LIGHT
-   ============================================================ */
-.si-ch {
-  padding: 48px 120px;
-}
-.si-ch.cream { background: var(--parchment); }
-.si-ch.sand  { background: var(--sand); }
+/* DATA CHAPTER */
+.si-data{background:var(--ink);padding:48px 120px;}
+.si-data h2{font-family:'DM Serif Display',serif;font-size:clamp(39px,4.55vw,62px);color:#fff;font-weight:400;margin-bottom:28px;line-height:1.1;scroll-margin-top:24px;}
+.si-data h2 a{color:inherit;text-decoration:none;border-bottom:2px solid transparent;transition:border-color .2s;}
+.si-data h2 a:hover{border-bottom-color:var(--gold);}
+.si-data h3{font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold);font-weight:400;margin:28px 0 8px;}
+.si-data-inner{display:grid;grid-template-columns:1fr 420px;gap:52px;align-items:start;}
+.si-data-body{font-size:clamp(15px,1.5vw,17px);line-height:1.85;color:var(--off-white);font-weight:300;}
+.si-data-body p+p{margin-top:14px;}
+.si-data-body strong{color:rgba(250,246,240,.92);font-weight:500;}
 
-.si-ch-num {
-  display: inline-block;
-  background: var(--crimson);
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: .2em;
-  padding: 8px 20px;
-  border-radius: 2px;
-  margin-bottom: 12px;
-}
-.si-ch h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(39px, 4.55vw, 62px);
-  color: var(--ink);
-  font-weight: 400;
-  margin-bottom: 32px;
-  line-height: 1.1;
-  scroll-margin-top: 24px;
-}
-.si-ch h2 a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: border-color .2s;
-}
-.si-ch h2 a:hover { border-bottom-color: var(--crimson); }
+/* STATS SIDEBAR */
+.si-stats{display:flex;flex-direction:column;gap:2px;}
+.si-stat{background:rgba(255,255,255,.05);padding:22px 26px;}
+.si-stat-val{font-family:'DM Serif Display',serif;font-size:52px;color:var(--gold);line-height:1;display:block;margin-bottom:8px;}
+.si-stat-lbl{font-size:13px;color:rgba(250,246,240,.5);line-height:1.5;}
+.si-chart-wrap{margin-top:2px;background:rgba(255,255,255,.04);padding:24px;}
+.si-chart-title{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.si-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.si-bar-label{font-size:13px;color:rgba(250,246,240,.6);min-width:90px;}
+.si-bar-track{flex:1;background:rgba(255,255,255,.08);height:20px;border-radius:2px;overflow:hidden;}
+.si-bar-fill{height:100%;border-radius:2px;}
+.si-bar-val{font-size:13px;color:rgba(250,246,240,.5);min-width:48px;text-align:right;}
 
-/* ============================================================
-   TWO-COLUMN LAYOUTS
-   ============================================================ */
-.si-two {
-  display: grid;
-  gap: 52px;
-  align-items: start;
-}
-.si-two.one-img   { grid-template-columns: 1fr 360px; }
-.si-two.two-img   { grid-template-columns: 1fr 1fr; }
-.si-two.no-img    { grid-template-columns: 1fr; }
+/* INFOGRAPHICS (Ch 06 special) */
+.si-infographics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-top:2px;}
+.si-infographic-stat,.si-infographic-pie{background:rgba(255,255,255,.05);padding:28px 24px;}
+.si-ig-val{font-family:'DM Serif Display',serif;font-size:48px;color:var(--gold);line-height:1;display:block;margin-bottom:12px;}
+.si-ig-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.si-ig-body{font-size:13px;color:rgba(250,246,240,.55);line-height:1.6;}
+.si-pie-svg{width:120px;height:120px;display:block;margin:0 auto 12px;}
+.si-pie-legend{font-size:11px;color:rgba(250,246,240,.5);line-height:2;text-align:center;margin-bottom:10px;}
+.si-pie-dot{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:middle;margin-right:3px;}
 
-/* ============================================================
-   BODY TEXT
-   ============================================================ */
-.si-body {
-  font-size: clamp(16px, 1.6vw, 18px);
-  line-height: 1.9;
-  color: var(--warm-brown);
-  font-weight: 300;
-}
-.si-body p + p { margin-top: 16px; }
-.si-body strong { font-weight: 500; color: #2A1A0E; }
-.si-body ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 14px 0;
-}
-.si-body ul li {
-  padding: 5px 0 5px 20px;
-  position: relative;
-}
-.si-body ul li::before {
-  content: '–';
-  position: absolute;
-  left: 0;
-  color: var(--crimson);
-}
-.si-body ul li em { color: var(--mid-brown); font-style: italic; }
+/* SPECIAL INSTRUCTIONS — hidden on live page */
+.si-special{display:none;}
 
-/* ============================================================
-   IMAGE COLUMN
-   ============================================================ */
-.si-img-col {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* RESPONSIVE */
+@media(max-width:900px){
+  .si-hero,.si-index,.si-ch,.si-data{padding:32px;}
+  .si-two.one-img,.si-two.two-img,.si-data-inner{grid-template-columns:1fr;}
+  .si-index-grid{grid-template-columns:repeat(2,1fr);}
+  .si-meta{gap:24px;}
+  .si-ch-spacer{height:48px;}
+  .si-callout{padding:32px 36px;}
+  .si-character{grid-template-columns:1fr;}
+  .si-infographics{grid-template-columns:1fr;}
+  .si-float-right{float:none;width:100%;margin:0 0 24px 0;}
 }
-.si-photo {
-  width: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: 2px;
-}
-.si-photo.tall  { aspect-ratio: 3/4; }
-.si-photo.wide  { aspect-ratio: 16/9; }
-.si-caption {
-  font-size: 13px;
-  color: var(--light-brown);
-  font-style: italic;
-  line-height: 1.5;
-  border-left: 2px solid var(--gold);
-  padding-left: 10px;
-  margin-top: 6px;
-}
-
-/* ============================================================
-   RED CALLOUT BOXES
-   — Extra internal padding so white text never touches edges
-   ============================================================ */
-.si-callout {
-  background: var(--crimson);
-  padding: 44px 52px;       /* generous internal breathing room */
-  border-radius: 2px;
-  margin-top: 24px;
-}
-.si-img-col .si-callout {
-  margin-top: 20px;
-  flex-shrink: 0;
-}
-.si-callout p {
-  font-family: 'DM Serif Display', serif;
-  font-size: 23px;
-  font-style: italic;
-  color: #fff;
-  line-height: 1.6;
-  /* Belt-and-suspenders: text indent so first/last words breathe */
-  padding: 0;
-}
-
-/* ============================================================
-   DATA CHAPTER (dark background)
-   ============================================================ */
-.si-data {
-  background: var(--ink);
-  padding: 48px 120px;
-}
-.si-data h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(39px, 4.55vw, 62px);
-  color: #fff;
-  font-weight: 400;
-  margin-bottom: 28px;
-  line-height: 1.1;
-  scroll-margin-top: 24px;
-}
-.si-data h2 a { color: inherit; text-decoration: none; border-bottom: 2px solid transparent; transition: border-color .2s; }
-.si-data h2 a:hover { border-bottom-color: var(--gold); }
-
-.si-data-inner {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 52px;
-  align-items: start;
-}
-.si-data-body {
-  font-size: clamp(15px, 1.5vw, 17px);
-  line-height: 1.85;
-  color: var(--off-white);
-  font-weight: 300;
-}
-.si-data-body p + p { margin-top: 14px; }
-.si-data-body strong { color: rgba(250,246,240,.92); font-weight: 500; }
-
-/* Stats sidebar */
-.si-stats { display: flex; flex-direction: column; gap: 2px; }
-.si-stat  { background: rgba(255,255,255,.05); padding: 22px 26px; }
-.si-stat-val {
-  font-family: 'DM Serif Display', serif;
-  font-size: 52px;
-  color: var(--gold);
-  line-height: 1;
-  display: block;
-  margin-bottom: 8px;
-}
-.si-stat-lbl { font-size: 13px; color: rgba(250,246,240,.5); line-height: 1.5; }
-
-/* Bar chart */
-.si-chart-wrap {
-  margin-top: 2px;
-  background: rgba(255,255,255,.04);
-  padding: 24px;
-}
-.si-chart-title {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 16px;
-}
-.si-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.si-bar-label { font-size: 13px; color: rgba(250,246,240,.6); min-width: 90px; }
-.si-bar-track { flex: 1; background: rgba(255,255,255,.08); height: 20px; border-radius: 2px; overflow: hidden; }
-.si-bar-fill  { height: 100%; border-radius: 2px; }
-.si-bar-val   { font-size: 13px; color: rgba(250,246,240,.5); min-width: 48px; text-align: right; }
-
-/* ============================================================
-   SPECIAL INSTRUCTIONS BUFFER
-   — Shown only in editor / draft view; hidden when empty
-   ============================================================ */
-.si-special {
-  display: none; /* Editor-only — never publishes to live page */
-}
-/* si-special label/inner styles omitted — block is hidden */
-.si-special:empty { display: none; }
-
-/* ============================================================
-   CHAPTER BUFFER (chapters not yet written)
-   ============================================================ */
-.si-ch-buffer {
-  padding: 60px 120px;
-  background: var(--parchment);
-  border-top: 1px solid rgba(88,69,40,.08);
-}
-.si-ch-buffer.sand { background: var(--sand); }
-.si-ch-buffer.dark { background: var(--ink); }
-
-.si-buffer-inner {
-  border: 2px dashed rgba(88,69,40,.18);
-  border-radius: 3px;
-  padding: 48px 40px;
-  text-align: center;
-}
-.si-ch-buffer.dark .si-buffer-inner {
-  border-color: rgba(189,138,94,.2);
-}
-.si-buffer-num {
-  display: inline-block;
-  background: rgba(183,18,52,.12);
-  color: var(--crimson);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .3em;
-  padding: 5px 14px;
-  border-radius: 2px;
-  margin-bottom: 14px;
-}
-.si-ch-buffer.dark .si-buffer-num {
-  background: rgba(189,138,94,.1);
-  color: var(--gold);
-}
-.si-buffer-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(28px, 3vw, 42px);
-  color: rgba(26,16,8,.35);
-  font-weight: 400;
-  margin-bottom: 16px;
-}
-.si-ch-buffer.dark .si-buffer-title { color: rgba(250,246,240,.2); }
-.si-buffer-note {
-  font-size: 13px;
-  color: rgba(88,69,40,.4);
-  font-style: italic;
-}
-.si-ch-buffer.dark .si-buffer-note { color: rgba(250,246,240,.25); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 900px) {
-  .si-hero,
-  .si-index,
-  .si-ch,
-  .si-data,
-  .si-ch-buffer { padding: 32px; }
-
-  .si-two.one-img,
-  .si-two.two-img,
-  .si-data-inner  { grid-template-columns: 1fr; }
-
-  .si-index-grid  { grid-template-columns: repeat(2,1fr); }
-  .si-meta        { gap: 24px; }
-  .si-ch-spacer   { height: 48px; }
-
-  .si-callout     { padding: 32px 36px; }
-}
-
-@media (max-width: 560px) {
-  .si-index-grid  { grid-template-columns: 1fr; }
-  .si-callout     { padding: 28px 28px; }
+@media(max-width:560px){
+  .si-index-grid{grid-template-columns:1fr;}
+  .si-callout{padding:28px 28px;}
 }
 </style>
 </head>
 <body>
 <div id="si-wrap">
 
-  <!-- ═══════════════════════════════════════════
-       HERO / COVER
-       ═══════════════════════════════════════════ -->
-  <section class="si-hero">
-    <div class="si-kicker">
-      <span class="si-kicker-line"></span>
-      <span class="si-kicker-text">Story Inventory</span>
+<!-- HERO -->
+<section class="si-hero">
+  <div class="si-kicker"><span class="si-kicker-line"></span><span class="si-kicker-text">Story Inventory</span></div>
+  <h1>Davis Federal<br><em>Credit Union</em></h1>
+  <p class="si-hero-sub">Characters, story threads and themes to power digital storytelling success</p>
+  <hr class="si-hero-rule">
+  <div class="si-meta">
+    <div class="si-meta-item"><label>Prepared by</label><span>California Story Company</span></div>
+    <div class="si-meta-item"><label>Client</label><span>Davis Federal Credit Union</span></div>
+    <div class="si-meta-item"><label>Date</label><span>April 2026</span></div>
+    <div class="si-meta-item"><label>Version</label><span>1.0 — Confidential</span></div>
+  </div>
+</section>
+
+<div class="si-red-bar"></div>
+
+<!-- TABLE OF CONTENTS -->
+<section class="si-index">
+  <p class="si-index-title">Contents</p>
+  <div class="si-index-grid">
+    <a class="si-idx-row" href="#ch01"><span class="si-idx-n">01</span><span class="si-idx-l">Scope</span></a>
+    <a class="si-idx-row" href="#ch02"><span class="si-idx-n">02</span><span class="si-idx-l">DFCU Goals</span></a>
+    <a class="si-idx-row" href="#ch03"><span class="si-idx-n">03</span><span class="si-idx-l">Methodology</span></a>
+    <a class="si-idx-row" href="#ch04"><span class="si-idx-n">04</span><span class="si-idx-l">Community History</span></a>
+    <a class="si-idx-row" href="#ch05"><span class="si-idx-n">05</span><span class="si-idx-l">Present-Day Davis</span></a>
+    <a class="si-idx-row" href="#ch06"><span class="si-idx-n">06</span><span class="si-idx-l">Data</span></a>
+    <a class="si-idx-row" href="#ch07"><span class="si-idx-n">07</span><span class="si-idx-l">Membership + Positioning</span></a>
+    <a class="si-idx-row" href="#ch08"><span class="si-idx-n">08</span><span class="si-idx-l">Demographics + Alignment</span></a>
+    <a class="si-idx-row" href="#ch09"><span class="si-idx-n">09</span><span class="si-idx-l">Branding + Identity</span></a>
+    <a class="si-idx-row" href="#ch10"><span class="si-idx-n">10</span><span class="si-idx-l">Strategic Offerings</span></a>
+    <a class="si-idx-row" href="#ch11"><span class="si-idx-n">11</span><span class="si-idx-l">Internal Narratives</span></a>
+    <a class="si-idx-row" href="#ch12"><span class="si-idx-n">12</span><span class="si-idx-l">External Narratives</span></a>
+    <a class="si-idx-row" href="#ch13"><span class="si-idx-n">13</span><span class="si-idx-l">Cultural Corollaries</span></a>
+    <a class="si-idx-row" href="#ch14"><span class="si-idx-n">14</span><span class="si-idx-l">Character Olympiad</span></a>
+    <a class="si-idx-row" href="#ch15"><span class="si-idx-n">15</span><span class="si-idx-l">Recommendations</span></a>
+    <a class="si-idx-row" href="#ch16"><span class="si-idx-n">16</span><span class="si-idx-l">Related Budgets</span></a>
+    <a class="si-idx-row" href="#ch17"><span class="si-idx-n">17</span><span class="si-idx-l">Possible Timelines</span></a>
+    <a class="si-idx-row" href="#ch18"><span class="si-idx-n">18</span><span class="si-idx-l">Summary</span></a>
+  </div>
+</section>
+<div class="si-green-bar"></div>
+
+
+<div class="si-ch-spacer"></div>
+<section id="ch01" class="si-ch cream">
+  <div class="si-ch-num">01</div>
+  <h2><a href="#ch01">Scope</a></h2>
+  <div class="si-two one-img">
+    <div class="si-body">
+      <p>Davis Federal Credit Union (DFCU) seeks to strengthen its brand throughout the city and Yolo County/Sacramento region. Dependable and consistent over its history, DFCU is involved in many efforts to support its community. It has about $9 billion in assets.</p>
+      <p>Its media marketing efforts are grounded primarily in standard television advertising, which have long taken a common skit/fictional approach. Its YouTube channel has about 200 subscribers, where postings receive an average of less than 60 views. Those postings largely consist of reposts of DFCU's television ads and an occasional re-platforming of its Instagram channel. Its in-house media manager primarily concentrates her efforts on social platforms like Instagram Threads, Facebook and TikTok.</p>
+      <p>DFCU has interest in expanding marketing to YouTube and embracing an approach that foregrounds authentic stories. This will be their first foray into the space.</p>
+      <p>While Davis is principally known as the home of its namesake University of California campus, the town itself also boasts a high number of college-bound students due to its above-average local school system. Therefore, DFCU is interested in narratives that thread through its well-used student loan programs. Meanwhile, students coming to UC Davis to begin their lives as adults are seen as an opportunity to grow DFCU's checking and savings accounts.</p>
+      <p>Davis is a community-focused town in which more than 25% of its residents have a master's degree and a climate of diversity runs throughout. Some businesses, including DFCU, have been fixtures of downtown for decades. Overall, this makes the overall service area highly receptive to high-quality, genuine pitches versus gimmicks or standard marketing tools.</p>
+      <p>In partnership with DFCU, we identified the following scope for this Story Inventory:</p>
+      <ul>
+        <li>Identify pathways for DFCU to incorporate authentic stories into its marketing efforts, with digital stories augmenting the overall brand narrative.</li>
+        <li>Rank available characters and story arcs both within Davis and Yolo County overall, and also within DFCU, relating to the following objectives:
+          <ul style="margin-top:10px;">
+            <li><em>Student loans</em> — character possibilities that intersect with DFCU's student loan program, with an eye toward developing digital media for a campaign to launch in early fall 2027.</li>
+            <li><em>Internal connections</em> — evaluate staff and employees for interesting arcs that intersect organically with the community at large, subtly showing engagement and reflecting community values.</li>
+            <li><em>Community connections</em> — explore characters and threads in DFCU's membership that feature strong community connections and values that align with DFCU.</li>
+            <li><em>Overall opportunities</em> — identify external community threads that complement DFCU's current overall branding, which could work as digital sub-brands focused to help longer-term brand identity and presence within the community.</li>
+          </ul>
+        </li>
+      </ul>
     </div>
-    <h1>Davis Federal<br><em>Credit Union</em></h1>
-    <p class="si-hero-sub">Characters, story threads and themes to power digital storytelling success</p>
-    <hr class="si-hero-rule">
-    <div class="si-meta">
-      <div class="si-meta-item">
-        <label>Prepared by</label>
-        <span>California Story Company</span>
+    <div class="si-img-col">
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/sunflower_rows.jpeg" alt="Sunflower fields in Yolo County">
       </div>
-      <div class="si-meta-item">
-        <label>Client</label>
-        <span>Davis Federal Credit Union</span>
-      </div>
-      <div class="si-meta-item">
-        <label>Date</label>
-        <span>April 2026</span>
-      </div>
-      <div class="si-meta-item">
-        <label>Version</label>
-        <span>1.0 — Confidential</span>
-      </div>
+      <div class="si-callout"><p>Davis is a community-focused town in which more than 25% of its residents have a master's degree and a climate of diversity runs throughout.</p></div>
     </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <div class="si-red-bar"></div>
-
-  <!-- ═══════════════════════════════════════════
-       TABLE OF CONTENTS
-       ═══════════════════════════════════════════ -->
-  <section class="si-index">
-    <p class="si-index-title">Contents</p>
-    <div class="si-index-grid">
-      <a class="si-idx-row" href="#ch01"><span class="si-idx-n">01</span><span class="si-idx-l">Scope</span></a>
-      <a class="si-idx-row" href="#ch02"><span class="si-idx-n">02</span><span class="si-idx-l">DFCU Goals</span></a>
-      <a class="si-idx-row" href="#ch03"><span class="si-idx-n">03</span><span class="si-idx-l">Methodology</span></a>
-      <a class="si-idx-row" href="#ch04"><span class="si-idx-n">04</span><span class="si-idx-l">Community History</span></a>
-      <a class="si-idx-row" href="#ch05"><span class="si-idx-n">05</span><span class="si-idx-l">Present-Day Davis</span></a>
-      <a class="si-idx-row" href="#ch06"><span class="si-idx-n">06</span><span class="si-idx-l">Data</span></a>
-      <a class="si-idx-row" href="#ch07"><span class="si-idx-n">07</span><span class="si-idx-l">Membership + Positioning</span></a>
-      <a class="si-idx-row" href="#ch08"><span class="si-idx-n">08</span><span class="si-idx-l">Demographics + Alignment</span></a>
-      <a class="si-idx-row" href="#ch09"><span class="si-idx-n">09</span><span class="si-idx-l">Branding + Identity</span></a>
-      <a class="si-idx-row" href="#ch10"><span class="si-idx-n">10</span><span class="si-idx-l">Strategic Offerings</span></a>
-      <a class="si-idx-row" href="#ch11"><span class="si-idx-n">11</span><span class="si-idx-l">Internal Narratives</span></a>
-      <a class="si-idx-row" href="#ch12"><span class="si-idx-n">12</span><span class="si-idx-l">External Narratives</span></a>
-      <a class="si-idx-row" href="#ch13"><span class="si-idx-n">13</span><span class="si-idx-l">Cultural Corollaries</span></a>
-      <a class="si-idx-row" href="#ch14"><span class="si-idx-n">14</span><span class="si-idx-l">Character Olympiad</span></a>
-      <a class="si-idx-row" href="#ch15"><span class="si-idx-n">15</span><span class="si-idx-l">Recommendations</span></a>
-      <a class="si-idx-row" href="#ch16"><span class="si-idx-n">16</span><span class="si-idx-l">Related Budgets</span></a>
-      <a class="si-idx-row" href="#ch17"><span class="si-idx-n">17</span><span class="si-idx-l">Possible Timelines</span></a>
-      <a class="si-idx-row" href="#ch18"><span class="si-idx-n">18</span><span class="si-idx-l">Summary</span></a>
+<div class="si-ch-spacer sand"></div>
+<section id="ch02" class="si-ch sand">
+  <div class="si-ch-num">02</div>
+  <h2><a href="#ch02">DFCU Goals</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>DFCU's goals are twofold.</p>
+      <p><strong>1. Spur product growth</strong> — DFCU wants to see growth in its student loan sector. We'll base some of our story inventory on demographic information that helps us focus on the best characters to drive this area. A 2% to 5% growth in this area over the coming cycle would be considered excellent.</p>
+      <p><strong>2. Grow overall brand awareness</strong> — DFCU believes potential members sometimes skip them over due to a perception that they are not actually owned and operated in the area. They attribute this in part to having taken a somewhat generic approach to their marketing, which has not embraced regional sensibilities or exalted local characters to this point. Stock photography and skit-type television ads have produced only average returns despite a substantial and earnest attempt to support the community in a variety of ways, including sponsorship of some local events. In part, our efforts will be to advance a sub-brand of authentic, community-centered stories that could grow to inform overall marketing efforts over time.</p>
+      <div class="si-callout"><p>Our efforts will be to advance a sub-brand of authentic, community-centered stories.</p></div>
     </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <div class="si-green-bar"></div>
-
-  <!-- ═══════════════════════════════════════════
-       CH 01 — SCOPE
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch01" class="si-ch cream">
-    <div class="si-ch-num">01</div>
-    <h2><a href="#ch01">Scope</a></h2>
-    <div class="si-two one-img">
-      <div class="si-body">
-        <p>Davis Federal Credit Union (DFCU) seeks to strengthen its brand throughout the city and Yolo County/Sacramento region. Dependable and consistent over its history, DFCU is involved in many efforts to support its community. It has about $9 billion in assets.</p>
-        <p>Its media marketing efforts are grounded primarily in standard television advertising, which have long taken a common skit/fictional approach. Its YouTube channel has about 200 subscribers, where postings receive an average of less than 60 views. Those postings largely consist of reposts of DFCU's television ads and an occasional re-platforming of its Instagram channel. Its in-house media manager primarily concentrates her efforts on social platforms like Instagram Threads, Facebook and TikTok.</p>
-        <p>DFCU has interest in expanding marketing to YouTube and embracing an approach that foregrounds authentic stories. This will be their first foray into the space.</p>
-        <p>While Davis is principally known as the home of its namesake University of California campus, the town itself also boasts a high number of college-bound students due to its above-average local school system. Therefore, DFCU is interested in narratives that thread through its well-used student loan programs. Meanwhile, students coming to UC Davis to begin their lives as adults are seen as an opportunity to grow DFCU's checking and savings accounts.</p>
-        <p>Davis is a community-focused town in which more than 25% of its residents have a master's degree and a climate of diversity runs throughout. Some businesses, including DFCU, have been fixtures of downtown for decades. Overall, this makes the overall service area highly receptive to high-quality, genuine pitches versus gimmicks or standard marketing tools.</p>
-        <p>In partnership with DFCU, we identified the following scope for this Story Inventory:</p>
-        <ul>
-          <li>Identify pathways for DFCU to incorporate authentic stories into its marketing efforts, with digital stories augmenting the overall brand narrative.</li>
-          <li>Rank available characters and story arcs both within Davis and Yolo County overall, and also within DFCU, relating to the following objectives:
-            <ul style="margin-top:10px;">
-              <li><em>Student loans</em> — character possibilities that intersect with DFCU's student loan program, with an eye toward developing digital media for a campaign to launch in early fall 2027.</li>
-              <li><em>Internal connections</em> — evaluate staff and employees for interesting arcs that intersect organically with the community at large, subtly showing engagement and reflecting community values.</li>
-              <li><em>Community connections</em> — explore characters and threads in DFCU's membership that feature strong community connections and values that align with DFCU.</li>
-              <li><em>Overall opportunities</em> — identify external community threads that complement DFCU's current overall branding, which could work as digital sub-brands focused to help longer-term brand identity and presence within the community.</li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="si-img-col">
-        <div>
-          <img class="si-photo wide" src="https://images.squarespace-cdn.com/content/5cefe5fffb36ab0001750eec/e25d2cac-f7cc-45f1-9cb7-84f287322fef/sunflower_rows.jpeg" alt="Sunflower fields in Yolo County">
-          <p class="si-caption">Yolo County is abundant with agriculture, including a massive sunflower bloom in midsummer.</p>
-        </div>
-        <div class="si-callout">
-          <p>Davis is a community-focused town — highly receptive to high-quality, genuine storytelling versus gimmicks or standard marketing tools.</p>
-        </div>
-      </div>
+<div class="si-ch-spacer"></div>
+<section id="ch03" class="si-ch cream">
+  <div class="si-ch-num">03</div>
+  <h2><a href="#ch03">Methodology</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>Our conclusions are derived from work over four weeks beginning on March 9. It began with helpful consultations with DFCU leadership to provide a sense of the organization's history and relationship with the town and its overall marketing goals.</p>
+      <p>DFCU staff were engaged in a two-week online survey process during which they were prompted to both share aspects of their own relationship with DFCU and also to identify possible characters and story threads that could inform other work. About 200 web-based surveys were completed. The surveys allowed for a variety of initial, informal interviews to be arranged both within and beyond DFCU. Some pre-interviews were conducted via Zoom, with the most promising of them scheduled for in-person follow-ups.</p>
+      <p>A six-day site visit with California Story Company's John Hubbell and Rob Knox occurred from March 29 through April 3, 2026. During that period, 12 members of DFCU's staff were met with in-person to explore possibly being featured in upcoming marketing efforts. Additionally, 11 story threads relating to student loans, identified through staff survey, were explored. Also, we found 14 overarching community threads and possible characters including student life, agriculture and bicycling culture and town quirkiness that create excellent opportunities for DFCU to highlight.</p>
+      <div class="si-callout"><p>11 story threads relating to student loans, identified through staff survey, were explored.</p></div>
     </div>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-    <!-- SPECIAL INSTRUCTIONS BUFFER -->
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 01</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
+<div class="si-ch-spacer sand"></div>
+<section id="ch04" class="si-ch sand">
+  <div class="si-ch-num">04</div>
+  <h2><a href="#ch04">Community History</a></h2>
+  <div class="si-two one-img">
+    <div class="si-body">
+      <p>The land that would become Davis was home to the Patwin people, a Southern Wintun group who had lived in the Sacramento Valley for thousands of years, relying on its wetlands, grasslands, and river systems for sustenance. Spanish colonization and the mission system decimated their population through disease and forced labor, and by California's statehood in 1850, the Patwin had been largely displaced.</p>
+      <p>The arrival of the California Pacific Railroad in 1868 was the pivotal event that created the town itself. Jerome C. Davis, a prominent local rancher whose farm occupied much of the surrounding land, sold a right-of-way to the railroad company. A depot was established, and the small community that grew up around it took the name "Davisville" in his honor. The town was incorporated in 1917 and formally shortened its name to Davis.</p>
+      <p>That transformation hinged on a decision made in Sacramento in 1905. The University of California established the University Farm as an extension of UC Berkeley. After considerable lobbying — and the generous offer of land from Yolo County — the Farm was sited near Davisville. It opened in 1908, initially offering practical training in animal husbandry, agronomy, and irrigation to the sons of California farming families.</p>
+      <p>The institution grew steadily in ambition and scope, becoming the Northern Branch of the College of Agriculture in 1922 and achieving independent campus status as UC Davis in 1959. With that change came an expansion in enrollment, academic programs, and campus infrastructure that permanently altered the surrounding town.</p>
+      <p>Davis became widely recognized as a model cycling city, having invested in bicycle infrastructure as early as the 1960s — an initiative partly inspired by Dutch exchange students and embraced by a population that valued sustainability before it became a mainstream concern.</p>
+      <p>Davis is, in many ways, a place shaped by distinct historical layers: the agricultural ambitions of nineteenth-century settlers, a railroad depot that gave the town its name, and a public university that redefined its identity and drew people from around the world.</p>
     </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       CH 02 — DFCU GOALS
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer sand"></div>
-  <section id="ch02" class="si-ch sand">
-    <div class="si-ch-num">02</div>
-    <h2><a href="#ch02">DFCU Goals</a></h2>
-    <div class="si-two one-img">
-      <div class="si-body">
-        <p>DFCU's goals are twofold.</p>
-        <p><strong>1. Spur product growth —</strong> DFCU wants to see growth in its student loan sector. We'll base some of our story inventory on demographic information that helps us focus on the best characters to drive this area. A 2% to 5% growth in this area over the coming cycle would be considered excellent.</p>
-        <p><strong>2. Grow overall brand awareness —</strong> DFCU believes potential members sometimes skip them over due to a perception that they are not actually owned and operated in the area. They attribute this in part to having taken a somewhat generic approach to their marketing, which has not embraced regional sensibilities or exalted local characters to this point. Stock photography and skit-type television ads have produced only average returns despite a substantial and earnest attempt to support the community in a variety of ways, including sponsorship of some local events. In part, our efforts will be to advance a sub-brand of authentic, community-centered stories that could grow to inform overall marketing efforts over time.</p>
-      </div>
-      <div class="si-img-col">
-        <div class="si-callout">
-          <p>Stock photography and skit-type television ads have produced only average returns.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SPECIAL INSTRUCTIONS BUFFER -->
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 02</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       CH 03 — METHODOLOGY
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch03" class="si-ch cream">
-    <div class="si-ch-num">03</div>
-    <h2><a href="#ch03">Methodology</a></h2>
-    <div class="si-two no-img">
-      <div class="si-body">
-        <p>Our conclusions are derived from work over four weeks beginning on March 9. It began with helpful consultations with DFCU leadership to provide a sense of the organization's history and relationship with the town and its overall marketing goals.</p>
-        <p>DFCU staff were engaged in a two-week online survey process during which they were prompted to both share aspects of their own relationship with DFCU and also to identify possible characters and story threads that could inform other work. About 200 web-based surveys were completed. The surveys allowed for a variety of initial, informal interviews to be arranged both within and beyond DFCU. Some pre-interviews were conducted via Zoom, with the most promising of them scheduled for in-person follow-ups.</p>
-        <p>A six-day site visit with California Story Company's John Hubbell and Rob Knox occurred from March 29 through April 3, 2026. During that period, 12 members of DFCU's staff were met with in-person to explore possibly being featured in upcoming marketing efforts. Additionally, 11 story threads relating to student loans, identified through staff survey, were explored. Also, we found 14 overarching community threads and possible characters including student life, agriculture and bicycling culture and town quirkiness that create excellent opportunities for DFCU to highlight.</p>
-      </div>
-    </div>
-
-    <!-- SPECIAL INSTRUCTIONS BUFFER -->
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 03</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       CH 04 — COMMUNITY HISTORY
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer sand"></div>
-  <section id="ch04" class="si-ch sand">
-    <div class="si-ch-num">04</div>
-    <h2><a href="#ch04">Community History</a></h2>
-    <div class="si-two one-img">
-      <div class="si-body">
-        <p>The land that would become Davis was home to the Patwin people, a Southern Wintun group who had lived in the Sacramento Valley for thousands of years, relying on its wetlands, grasslands, and river systems for sustenance. Spanish colonization and the mission system decimated their population through disease and forced labor, and by California's statehood in 1850, the Patwin had been largely displaced.</p>
-        <p>The arrival of the California Pacific Railroad in 1868 was the pivotal event that created the town itself. Jerome C. Davis, a prominent local rancher whose farm occupied much of the surrounding land, sold a right-of-way to the railroad company. A depot was established, and the small community that grew up around it took the name "Davisville" in his honor. The town was incorporated in 1917 and formally shortened its name to Davis.</p>
-        <p>That transformation hinged on a decision made in Sacramento in 1905. The University of California established the University Farm as an extension of UC Berkeley. After considerable lobbying — and the generous offer of land from Yolo County — the Farm was sited near Davisville. It opened in 1908, initially offering practical training in animal husbandry, agronomy, and irrigation to the sons of California farming families.</p>
-        <p>The institution grew steadily in ambition and scope, becoming the Northern Branch of the College of Agriculture in 1922 and achieving independent campus status as UC Davis in 1959. With that change came an expansion in enrollment, academic programs, and campus infrastructure that permanently altered the surrounding town.</p>
-        <p>Davis became widely recognized as a model cycling city, having invested in bicycle infrastructure as early as the 1960s — an initiative partly inspired by Dutch exchange students and embraced by a population that valued sustainability before it became a mainstream concern.</p>
-        <p>Davis is, in many ways, a place shaped by distinct historical layers: the agricultural ambitions of nineteenth-century settlers, a railroad depot that gave the town its name, and a public university that redefined its identity and drew people from around the world.</p>
-      </div>
-      <div class="si-img-col">
-        <div>
-          <img class="si-photo wide" src="https://images.squarespace-cdn.com/content/5cefe5fffb36ab0001750eec/4e757882-0258-4b62-a536-6bae808c0155/davis-ca-historical-photograph-facts-information-2.jpg" alt="Historical Davis photograph">
-          <p class="si-caption">A literal cow town, Davis took shape around the university that now serves as its main ambassador to the world.</p>
-        </div>
-        <div>
-          <img class="si-photo wide" src="https://images.squarespace-cdn.com/content/5cefe5fffb36ab0001750eec/b3c5b554-df72-428b-acec-7eb9db640300/davis+bikes+1967.jpeg" alt="Davis bicycle culture 1967">
-          <p class="si-caption">Bicycles typify the town's progressive attitude and athletic inclinations. Here, students make their way to class in 1967.</p>
-        </div>
-        <div class="si-callout">
-          <p>What began as a farming outpost became, over a century, one of California's most distinctive college cities.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SPECIAL INSTRUCTIONS BUFFER -->
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 04</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       CH 05 — PRESENT-DAY DAVIS
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch05" class="si-ch cream">
-    <div class="si-ch-num">05</div>
-    <h2><a href="#ch05">Present-Day Davis</a></h2>
-    <div class="si-two one-img">
-      <div class="si-body">
-        <p>By 1990, Davis had firmly established itself as a university city with a well-defined civic identity — environmentally conscious, politically engaged, and closely tied to the rhythms of UC Davis's academic calendar. The decades that followed brought population growth, institutional expansion, and occasional controversy that tested and, in some cases, reshaped the community's character.</p>
-        <p>The 1990s were a period of steady growth. UC Davis continued expanding its research programs while strengthening its national reputation in veterinary medicine, agricultural sciences and environmental studies, drawing faculty and graduate students from across the country and abroad.</p>
-        <p>On the civic front, Davis remained committed to land-use policies that favored slow, managed growth over suburban sprawl. Ballot measures that would have opened agricultural land at the city's periphery to development were regularly defeated by voters protective of the greenbelt that surrounds the city.</p>
-        <p>The most significant and widely publicized episode in Davis's recent history came in November 2011, when a UC Davis police officer pepper-sprayed a group of seated student protesters during an Occupy UC Davis demonstration on the university's quad. The episode generated lasting discussion about campus policing, student protest rights, and administrative accountability.</p>
-        <p>Notably, The New York Times highlighted Davis as a model community for halting the spread of COVID by frequent testing and unique use of UC Davis resources. This highlighted the overall positive relationship between the town and university, showcasing a community willing to follow protocols and endure collectively with a civic-focused mindset.</p>
-        <p>UC Davis today enrolls roughly 40,000 students and ranks among the leading public research universities in the country. The city continues to navigate the stresses between its growth pressures and its residents' long-standing preference for deliberate, limited expansion.</p>
-      </div>
-      <div class="si-img-col">
-        <div>
-          <img class="si-photo wide" src="https://images.squarespace-cdn.com/content/5cefe5fffb36ab0001750eec/092d0f28-b19a-4fc0-ad59-2069b363af9c/davis+drone+copy.jpg" alt="Aerial view of Davis">
-          <p class="si-caption">Flat and forested, Davis is hemmed in from all sides by an urban growth boundary that supports Yolo County's burgeoning agriculture industry.</p>
-        </div>
-        <div>
-          <img class="si-photo wide" src="https://images.squarespace-cdn.com/content/5cefe5fffb36ab0001750eec/3a0471e4-e215-43b0-84f6-4da05fb2a56f/davis+fog.webp" alt="Davis winter fog">
-          <p class="si-caption">Fog is both friend and foe in Davis. It settles over the valley during winter, sometimes for weeks, bringing a somnambulant, sleepy quality to the otherwise bustling university town.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SPECIAL INSTRUCTIONS BUFFER -->
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 05</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════
-       CH 06 — DATA
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer dark"></div>
-  <section id="ch06" class="si-data">
-    <div class="si-ch-num">06</div>
-    <h2><a href="#ch06">Data</a></h2>
-    <div class="si-data-inner">
-      <div class="si-data-body">
-        <p><strong>Geography + Climate</strong><br>
-        Davis sits in the heart of the Sacramento Valley, roughly 15 miles west of Sacramento and about 70 miles northeast of San Francisco. The city occupies remarkably flat terrain at just 52 feet above sea level. Davis enjoys an abundance of sunshine, averaging around 270 sunny days per year — well above the national average. Summers are long, hot, and dry; temperatures exceeding 100°F occur on roughly 15–20 days annually. The heat is frequently relieved in the late afternoon by the "Delta Breeze," a reliable wind funneled inland from San Francisco Bay.</p>
-        <p><strong>Population and Ethnicity</strong><br>
-        Davis has a population of approximately 67,000. The city is majority white at 49.9%, followed by Asian residents at 24.2% and Hispanic or Latino residents at 15.1%, with Black residents comprising roughly 2–3%. The city's Asian population is notably higher than both California's state average of around 15% and the national average of 6%, largely attributable to UC Davis's international student and faculty community.</p>
-        <p><strong>Education</strong><br>
-        Davis ranks among the most educated cities in the United States. Approximately 78.4% of residents hold a bachelor's degree or higher — roughly double the rate of the broader Sacramento metro area and more than twice the national average of approximately 35%.</p>
-        <p><strong>Income</strong><br>
-        The median household income in Davis is $90,045, and the average annual household income is $133,365 — both above California's median of roughly $85,000 and well above the national median of approximately $75,000.</p>
-        <p><strong>Crime</strong><br>
-        Davis's violent crime rate is roughly 48% below the national average, making it one of the safer mid-sized cities in California. Overall crime fell approximately 18% in 2024 compared to the prior year.</p>
-        <p><strong>Voting Trends</strong><br>
-        As of late 2024, registered Democrats in Yolo County numbered approximately 58,800, compared to roughly 24,000 Republicans and 25,400 with no party preference — a 2.4-to-1 Democratic advantage. Biden received 69.5% of the county vote in 2020; Harris received 66.3% in 2024.</p>
+    <div class="si-img-col">
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis-ca-historical-photograph-facts-information-2.jpg" alt="Historical Davis photograph">
       </div>
       <div>
-        <div class="si-stats">
-          <div class="si-stat">
-            <span class="si-stat-val">48%</span>
-            <span class="si-stat-lbl">Below the national average — Davis's violent crime rate, making it one of the safer mid-sized California cities.</span>
-          </div>
-          <div class="si-stat">
-            <span class="si-stat-val">$133K</span>
-            <span class="si-stat-lbl">Average annual household income in Davis. California median: $85K. U.S. median: $75K.</span>
-          </div>
-          <div class="si-stat">
-            <span class="si-stat-val">24.2%</span>
-            <span class="si-stat-lbl">Asian population — notably higher than California's 15% and the 6% national average.</span>
-          </div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20bikes%201967.jpeg" alt="Davis bicycle culture 1967">
+      </div>
+      <div class="si-callout"><p>Davis became widely recognized as a model cycling city, having invested in bicycle infrastructure as early as the 1960s.</p></div>
+    </div>
+  </div>
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer"></div>
+<section id="ch05" class="si-ch cream">
+  <div class="si-ch-num">05</div>
+  <h2><a href="#ch05">Present-Day Davis</a></h2>
+  <div class="si-two one-img">
+    <div class="si-body">
+      <p>By 1990, Davis had firmly established itself as a university city with a well-defined civic identity — environmentally conscious, politically engaged, and closely tied to the rhythms of UC Davis's academic calendar. The decades that followed brought population growth, institutional expansion, and occasional controversy that tested and, in some cases, reshaped the community's character.</p>
+      <p>The 1990s were a period of steady growth. UC Davis continued expanding its research programs while strengthening its national reputation in veterinary medicine, agricultural sciences and environmental studies, drawing faculty and graduate students from across the country and abroad. The surrounding region also saw growth in the biotechnology sector, partly due to UC Davis's research output and its proximity to Sacramento, and a nascent technology and life sciences corridor began taking shape.</p>
+      <p>On the civic front, Davis remained committed to land-use policies that favored slow, managed growth over suburban sprawl. Ballot measures that would have opened agricultural land at the city's periphery to development were regularly defeated by voters protective of the greenbelt that surrounds the city. This tension between housing demand and growth limits became a recurring feature of local politics throughout the decade and into the 2000s.</p>
+      <p>The 2000s brought continued development pressure as enrollment at UC Davis grew and housing costs in the region climbed. Davis received increasing national attention for its cycling culture and sustainability efforts, appearing frequently in rankings of the most bicycle-friendly cities in the United States. The city formalized its environmental commitments through a series of climate action plans and energy efficiency programs that set it apart from many California communities of comparable size.</p>
+      <p>The most significant and widely publicized episode in Davis's recent history came in November 2011, when a UC Davis police officer pepper-sprayed a group of seated student protesters during an Occupy UC Davis demonstration on the university's quad. The episode generated lasting discussion about campus policing, student protest rights, and administrative accountability, but is notable also for its rarity. Tensions between the university, students and community tend to be focused on unusual and specific incidents rather than ongoing or thematic.</p>
+      <p>Notably, The New York Times highlighted Davis as a model community for halting the spread of COVID by frequent testing and unique use of UC Davis resources. This highlighted the overall positive relationship between the town and university, showcasing a community willing to follow protocols and endure collectively with a civic-focused mindset.</p>
+      <p>UC Davis today enrolls roughly 40,000 students and ranks among the leading public research universities in the country. The city continues to navigate the stresses between its growth pressures and its residents' long-standing preference for deliberate, limited expansion.</p>
+    </div>
+    <div class="si-img-col">
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20picnic%20day%201.webp" alt="UC Davis Picnic Day">
+      </div>
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/farmersmarket_fe.webp" alt="Davis Farmers Market">
+      </div>
+      <div class="si-callout"><p>UC Davis today enrolls roughly 40,000 students and ranks among the leading public research universities in the country.</p></div>
+    </div>
+  </div>
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer dark"></div>
+<section id="ch06" class="si-data">
+  <div class="si-ch-num">06</div>
+  <h2><a href="#ch06">Data</a></h2>
+  <div class="si-data-inner">
+    <div class="si-data-body">
+      <h3>Geography + Climate</h3>
+      <p>Davis sits in the heart of the Sacramento Valley, roughly 15 miles west of Sacramento and about 70 miles northeast of San Francisco. The city occupies remarkably flat terrain — part of the broad alluvial plain that defines the Central Valley — with an elevation of just 52 feet above sea level. That flatness is framed by significant mountain ranges on either side of the valley. To the west, the Coast Ranges rise above the horizon, with Putah Creek canyon cutting through them toward Lake Berryessa. To the east, the Sierra Nevada forms a dramatic backdrop, with peaks exceeding 14,000 feet visible on clear days.</p>
+      <p>Davis enjoys an abundance of sunshine, averaging around 270 sunny days per year — well above the national average. Summers are long, hot, and dry; temperatures exceeding 100°F occur on roughly 15 to 20 days annually. The heat is frequently relieved in the late afternoon by the "Delta Breeze," a reliable wind funneled inland from the San Francisco Bay. Fog is a significant wintertime feature. Tule fog — a dense, ground-hugging radiation fog — settles into the valley from November through February, sometimes persisting for days.</p>
+      <h3>Population and Ethnicity</h3>
+      <p>Davis has a population of approximately 67,000. The city is majority white at 49.9%, followed by Asian residents at 24.2% and Hispanic or Latino residents at 15.1%, with Black residents comprising roughly 2–3%. The city's Asian population is notably higher than both California's state average of around 15% and the national average of 6%, largely attributable to UC Davis's international student and faculty community.</p>
+      <h3>Education</h3>
+      <p>Davis ranks among the most educated cities in the United States. Approximately 78.4% of residents hold a bachelor's degree or higher — roughly double the rate of the broader Sacramento metro area and more than twice the national average of approximately 35%.</p>
+      <h3>Income</h3>
+      <p>The median household income in Davis is $90,045, and the average annual household income is $133,365 — both above California's median of roughly $85,000 and well above the national median of approximately $75,000.</p>
+      <h3>Crime</h3>
+      <p>Davis's violent crime rate is roughly 48% below the national average, making it one of the safer mid-sized cities in California. Property crime is somewhat elevated — approximately 26% above the national rate — a pattern common to college towns. Overall crime fell approximately 18% in 2024 compared to the prior year.</p>
+      <h3>Voting Trends</h3>
+      <p>As of late 2024, registered Democrats in Yolo County numbered approximately 58,800, compared to roughly 24,000 Republicans and 25,400 with no party preference — a 2.4-to-1 Democratic advantage. Biden received 69.5% of the county vote in 2020; Harris received 66.3% in 2024.</p>
+    </div>
+    <div>
+      <div class="si-img-col">
+        <div>
+          <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20asians.webp" alt="Davis Asian community">
         </div>
-        <div class="si-chart-wrap">
-          <p class="si-chart-title">Yolo County voter registration 2024</p>
-          <div class="si-bar-row">
-            <span class="si-bar-label">Democrat</span>
-            <div class="si-bar-track"><div class="si-bar-fill" style="width:54%;background:#2a5cb8;"></div></div>
-            <span class="si-bar-val">58,800</span>
-          </div>
-          <div class="si-bar-row">
-            <span class="si-bar-label">No Party</span>
-            <div class="si-bar-track"><div class="si-bar-fill" style="width:23%;background:#7a7a7a;"></div></div>
-            <span class="si-bar-val">25,400</span>
-          </div>
-          <div class="si-bar-row">
-            <span class="si-bar-label">Republican</span>
-            <div class="si-bar-track"><div class="si-bar-fill" style="width:22%;background:#b72a2a;"></div></div>
-            <span class="si-bar-val">24,000</span>
-          </div>
+        <div>
+          <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/pragmatic%20progressivism.jpg" alt="Davis pragmatic progressivism">
         </div>
+        <div>
+          <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20fog.webp" alt="Davis winter fog">
+        </div>
+        <div class="si-callout"><p>Davis enjoys an abundance of sunshine, averaging around 270 sunny days per year, but also has a good deal of fog in winter.</p></div>
       </div>
     </div>
+  </div>
 
-    <!-- SPECIAL INSTRUCTIONS BUFFER -->
-    <div class="si-special" style="border-color:rgba(189,138,94,.3);background:rgba(189,138,94,.04);">
-      <div class="si-special-label" style="color:var(--gold);">Special Instructions — Chapter 06</div>
-      <div class="si-special-inner" style="color:rgba(250,246,240,.3);">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
+<div class="si-infographics">
+  <div class="si-infographic-stat">
+    <span class="si-ig-val">$90,045</span>
+    <p class="si-ig-body">Median household income in Davis — above California's median of ~$85,000 and well above the national median of ~$75,000. Professional households anchored by faculty, staff and researchers push the average annual figure to $133,365.</p>
+  </div>
+  <div class="si-infographic-pie">
+    <p class="si-ig-label">ETHNICITY</p>
+    <svg viewBox="0 0 200 200" class="si-pie-svg" xmlns="http://www.w3.org/2000/svg">
+      <!-- White 49.9% -->
+      <path d="M100,100 L100,10 A90,90 0 0,1 190,100 Z" fill="#BD8A5E"/>
+      <!-- Asian 24.2% -->
+      <path d="M100,100 L190,100 A90,90 0 0,1 127.5,186.5 Z" fill="#8A6A45"/>
+      <!-- Hispanic 15.1% -->
+      <path d="M100,100 L127.5,186.5 A90,90 0 0,1 37.2,172.4 Z" fill="#4A3520"/>
+      <!-- Black 2.5% -->
+      <path d="M100,100 L37.2,172.4 A90,90 0 0,1 18.2,131.2 Z" fill="#2C1A0E"/>
+      <!-- Other 8.3% -->
+      <path d="M100,100 L18.2,131.2 A90,90 0 0,1 100,10 Z" fill="#C8B49A"/>
+    </svg>
+    <div class="si-pie-legend">
+      <span class="si-pie-dot" style="background:#BD8A5E"></span> White 49.9%&nbsp;&nbsp;
+      <span class="si-pie-dot" style="background:#8A6A45"></span> Asian 24.2%&nbsp;&nbsp;
+      <span class="si-pie-dot" style="background:#4A3520"></span> Hispanic 15.1%&nbsp;&nbsp;
+      <span class="si-pie-dot" style="background:#2C1A0E"></span> Black ~2.5%&nbsp;&nbsp;
+      <span class="si-pie-dot" style="background:#C8B49A"></span> Other ~8.3%
     </div>
-  </section>
+    <p class="si-ig-body">Davis skews notably more Asian than both the California average (~15%) and the national average (6%), driven by UC Davis's large international student and faculty community. The city is majority white but meaningfully more diverse than comparable California cities.</p>
+  </div>
+  <div class="si-infographic-stat">
+    <span class="si-ig-val">78.4%</span>
+    <p class="si-ig-body">Share of Davis residents holding a bachelor's degree or higher — more than twice the national average of ~35% and roughly double the Sacramento metro rate. The university's presence draws a highly credentialed professional and academic class.</p>
+  </div>
+</div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 07 — MEMBERSHIP + POSITIONING (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch07" class="si-ch-buffer cream">
-    <div class="si-ch-num">07</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 07</div>
-      <h2 class="si-buffer-title">Membership + Positioning</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+<div class="si-ch-spacer"></div>
+<section id="ch07" class="si-ch cream">
+  <div class="si-ch-num">07</div>
+  <h2><a href="#ch07">Membership + Positioning</a></h2>
+  <div class="si-two one-img">
+    <div class="si-body">
+      <p>Davis Federal Credit Union is a member-owned financial cooperative serving the greater Davis area, with primary eligibility extended to UC Davis students, faculty, staff, and their immediate families, as well as residents of Yolo County. Its founding premise centers on low-fee, community-focused banking tailored to the specific financial realities of a university city — a market underserved by commercial banks oriented toward higher-balance customers.</p>
+      <p>DFCU occupies a distinct position in the local financial landscape — one shaped as much by the character of the community it serves as by the products it offers. In a city defined by its university, its environmental values and its preference for cooperative institutions over commercial ones, the credit union's brand identity is built around three interlocking ideas: accessibility, sustainability, and community rootedness.</p>
+      <p>Where commercial banks in the region market primarily to established professionals and homeowners, Davis Federal Credit Union positions itself as the financial institution for every stage of adult life in Davis — from a first-year graduate student opening a checking account to a faculty member financing a solar array. That breadth is not incidental; it reflects the reality of a membership base that spans a wide range of income levels and financial needs within a relatively compact geographic and demographic community.</p>
+      <p>The credit union's sustainability focus is not a marketing overlay but a genuine expression of its membership's values. In a city that has voted down development proposals, built protected bike infrastructure and maintained a greenbelt for decades, financial products that reward environmentally responsible choices carry real resonance. Davis Federal Credit Union's preferential loan rates for electric vehicles and energy efficiency improvements signal that the institution understands what its members care about beyond their account balances.</p>
+      <p>Perhaps most fundamentally, the credit union's identity rests on trust — the trust that comes from transparent pricing, member ownership and a visible presence in a close-knit community. In Davis, where institutional credibility matters and residents are well-informed enough to scrutinize fine print, that posture is not just good values. It is sound competitive strategy.</p>
+      <p>However, DFCU wants to bolster its social channels in part to better tell the story of its connection to the community. Leadership is open to stories that are DFCU-adjacent and that conform to the preferences of digital viewers, who embrace story-first media and authentic characters. Our scope includes finding threads that DFCU is adjacent to simply by being in the community and that, by amplifying, can further advance its brand identity.</p>
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 07</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
+    <div class="si-img-col">
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/central-davis-davis-ca-4.jpg" alt="Central Davis">
+      </div>
+      <div class="si-callout"><p>DFCU's sustainability focus is not a marketing overlay but a genuine expression of its membership's values.</p></div>
     </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 08 — DEMOGRAPHICS + ALIGNMENT (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer sand"></div>
-  <section id="ch08" class="si-ch-buffer sand">
-    <div class="si-ch-num">08</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 08</div>
-      <h2 class="si-buffer-title">Demographics + Alignment</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+<div class="si-ch-spacer sand"></div>
+<section id="ch08" class="si-ch sand">
+  <div class="si-ch-num">08</div>
+  <h2><a href="#ch08">Demographics + Alignment</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>Given Davis's demographics, the credit union's membership reflects the city's unusual age profile. With a citywide median age of 26, the membership base skews considerably younger than a typical American credit union, whose median member age nationally hovers near 47. The expected average age of a DFCU member falls somewhere between 29 and 34, pulled upward by faculty, staff, and established community residents, but anchored firmly by a large graduate student and young professional cohort.</p>
+      <p>Here, digital opportunity abounds for DFCU. Its average membership age is especially informative when evaluating prospects for growth on YouTube. Among potential members of this age, YouTube functions as far more than a video platform — it serves as a primary source of news, education, entertainment and personal development. This demographic turns to YouTube for long-form content that fits around demanding work schedules and family responsibilities, often watching on mobile devices during commutes or on connected TVs in the evening. Usage in this group rivals or exceeds traditional television viewing for many individuals.</p>
+      <p>This cohort grew up alongside the internet and developed a keen sensitivity to corporate polish and performative branding. As a result, they gravitate strongly toward <strong>authenticity</strong> — voices that speak candidly, acknowledge imperfection and engage their audiences as peers rather than consumers. They are drawn to <strong>character-driven storytelling</strong>, where the personality and lived experience of the creator is the primary draw, whether the topic is personal finance, cooking, travel, fitness, or commentary.</p>
+      <p>On gender, women comprise approximately 55 to 58 percent of the membership. Women slightly outnumber men in UC Davis enrollment and are well-represented in the university's administrative and healthcare workforce, and research consistently shows women are more likely than men to join community financial institutions they perceive as trustworthy and values-aligned.</p>
+      <p>The income profile is bifurcated. A significant portion of members — undergraduate and graduate students — carry household incomes under $35,000, relying on financial aid, stipends or part-time employment. The broader membership, however, including faculty, researchers, and working professionals, brings the median member income to approximately $68,000 to $75,000, somewhat below the city's overall household median due to the weight of the student population.</p>
+      <div class="si-callout"><p>Internet usage among 26-year-olds, the town's median age, rivals or exceeds traditional television viewing for many.</p></div>
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 08</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 09 — BRANDING + IDENTITY (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch09" class="si-ch-buffer cream">
-    <div class="si-ch-num">09</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 09</div>
-      <h2 class="si-buffer-title">Branding + Identity</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+<div class="si-ch-spacer"></div>
+<section id="ch09" class="si-ch cream">
+  <div class="si-ch-num">09</div>
+  <h2><a href="#ch09">Branding + Identity</a></h2>
+  <div class="si-two one-img">
+    <div class="si-body">
+      <p>DFCU's present brand identity is considered by executives to be only somewhat effective — "a 5.5 on a scale of 10," as one executive remarked to us. It has relied on rather generic language and stock imagery to create a reliable and credible presence within the community without adding any regional flair, distinction or voice.</p>
+      <p>Its current slogan is "Banking on You" and its main website display text says: "At Davis Federal Credit Union, our members are our mission. We believe everyone deserves access to trusted financial solutions — from competitive rates to personalized service you can count on." Related text is also generic and boilerplate: "We're not just a credit union — we're your financial partner for life's journey. Whether you're saving for tomorrow or planning for the unexpected, we're here every step of the way."</p>
+      <p>A sub-tagline used for its community sponsorships — which include a Little League team and generous donations to area charities including the local animal shelter and food bank — is "Where Community Comes First." This tagline manifests mainly on non-YouTube social media and in infrequently used signage, such as a center field sign at the local little league park.</p>
+      <p>Meanwhile, DFCU defines its brand pillars as: <strong>Trust. Integrity. Community. Service.</strong></p>
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 09</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
+    <div class="si-img-col">
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/dfcu%20exterior.jpg" alt="DFCU exterior">
+      </div>
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/dfcu%20little%20league.webp" alt="DFCU Little League sponsorship">
+      </div>
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20billboard%201.webp" alt="Davis billboard">
+      </div>
+      <div class="si-callout"><p>DFCU has relied on rather generic language and stock imagery — a reliable presence without regional flair, distinction or voice.</p></div>
     </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 10 — STRATEGIC OFFERINGS (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer dark"></div>
-  <section id="ch10" class="si-ch-buffer dark">
-    <div class="si-ch-num">10</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 10</div>
-      <h2 class="si-buffer-title">Strategic Offerings</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+<div class="si-ch-spacer sand"></div>
+<section id="ch10" class="si-ch sand">
+  <div class="si-ch-num">10</div>
+  <h2><a href="#ch10">Strategic Offerings</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>Davis Federal Credit Union's marketing strategy centers on three principal value propositions likely to resonate in Davis specifically.</p>
+      <h3>Sustainability</h3>
+      <p>The first is sustainability-linked financial products. Davis's environmental consciousness is not incidental — it is a core civic identity. Offering preferential interest rates on loans for electric vehicles, solar panel installation, and energy-efficient home improvements differentiates the institution immediately from commercial competitors and aligns with the values of a large portion of the target market.</p>
+      <h3>Student Financial Empowerment</h3>
+      <p>Zero-fee checking accounts, low-threshold savings products, accessible small personal loans to cover gaps between stipends and rent, and free financial literacy workshops address genuine pain points for the university's large graduate and undergraduate population — a demographic that commercial banks routinely underserve.</p>
+      <h3>Transparent Fee Structure</h3>
+      <p>DFCU prides itself in having a transparent, low-cost fee structure, and communicating it plainly. Davis Federal Credit Union's membership is highly educated and financially literate enough to comparison shop. A straightforward, jargon-free commitment to no hidden fees, low loan rates, and member profit-sharing through annual dividends builds the institutional trust that credit unions can offer but often fail to communicate effectively in their marketing. In a community already inclined toward cooperative models — from its food co-op to its housing cooperatives — that message has worked adequately. Yet it has not been personalized, with DFCU's messaging primarily favoring "product over people." Our scope keeps this in mind.</p>
+      <div class="si-callout"><p>DFCU's membership is highly educated and financially literate enough to comparison shop.</p></div>
     </div>
-    <div class="si-special" style="border-color:rgba(189,138,94,.2);background:rgba(189,138,94,.04);">
-      <div class="si-special-label" style="color:var(--gold);">Special Instructions — Chapter 10</div>
-      <div class="si-special-inner" style="color:rgba(250,246,240,.3);">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 11 — INTERNAL NARRATIVES (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch11" class="si-ch-buffer cream">
-    <div class="si-ch-num">11</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 11</div>
-      <h2 class="si-buffer-title">Internal Narratives</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+<div class="si-ch-spacer"></div>
+<section id="ch11" class="si-ch cream">
+  <div class="si-ch-num">11</div>
+  <h2><a href="#ch11">Internal Narratives</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>In interviews and informal chats with DFCU leadership and employees, we found a largely cohesive organization where a positive sentiment pervades. Employees express affection for DFCU and believe in its purpose, with lives that thread through the community. An ironic issue confronting them is that the community is largely too expensive for many to afford living in at present, with constrained inventory of affordable housing. Still, many express hope that they will one day live in Davis if not already living there today.</p>
+      <h3>Employees of Longstanding</h3>
+      <p>Since its beginning in 1990, DFCU has had remarkably little turnover by comparison. In an industry where churn often exceeds 20%, DFCU has seen about 10%. Two of DFCU's most senior leaders have been on board for about 15 years.</p>
+      <h3>Student Employees / Interns</h3>
+      <p>DFCU has a trainee program in cooperation with the UC Davis Graduate School of Management to train future finance executives through a successful, longstanding internship and fellowship program. Up to three standout students work part-time at DFCU in appropriate capacities over three months (for interns) and six months (for fellows). While many move on to other areas and career trajectories, DFCU has two current employees, Marissa Mendez and Charles Snyder, who parlayed their experience as fellows into full-time positions with the bank. We'll revisit them in the Character Olympiad.</p>
+      <div class="si-callout"><p>Two of DFCU's most senior leaders have been on board for about 15 years.</p></div>
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 11</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 12 — EXTERNAL NARRATIVES (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer sand"></div>
-  <section id="ch12" class="si-ch-buffer sand">
-    <div class="si-ch-num">12</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 12</div>
-      <h2 class="si-buffer-title">External Narratives</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+<div class="si-ch-spacer sand"></div>
+<section id="ch12" class="si-ch sand">
+  <div class="si-ch-num">12</div>
+  <h2><a href="#ch12">External Narratives</a></h2>
+  <div class="si-two one-img">
+    <div class="si-body">
+      <p>We identified several positive, visually appealing narratives that can be embraced to share a sense of place with city residents, students and the overall population of Yolo County.</p>
+      <h3>Cycling</h3>
+      <p>Davis is known as the "bicycle capital of America." At its center sits the U.S. Bicycling Hall of Fame, which houses a unique array of cycling ephemera and proves a draw for cyclists across the country. An old-time bicycle is incorporated into Davis's city logo, and a vast array of town trails, including the famed Davis Bike Loop, allow Davis to lay claim to being one of the most bike-friendly cities in America. Children safely ride the trail unaccompanied to and from school, while everyone from students to seniors make the trail a vibrant, frequently used aspect of the community.</p>
+      <h3>Agriculture / Farmer's Market</h3>
+      <p>Yolo County's agricultural industry is massive, with farms and fields surrounding the town. This owes itself to the region's overall history and an urban growth boundary intent on preserving the feel of a semi-rural area. Some families of longstanding continue to farm in the area, which boasts an overall gross value of nearly $900 million. Dominant crops include tomatoes, almonds, wine grapes, rice and walnuts. Davis also boasts a well-attended, environmentally focused, twice-weekly farmer's market at the center of town, featuring more than 90 vendors and attended by an estimated 7,000 residents each week. It's a 50-year-old tradition and the source of much community pride.</p>
+      <h3>Student Life</h3>
+      <p>Half of Davis's roughly 70,000 residents are students, whose rhythms seasonally swell the town with vibrance and character. About 8,000 of them are graduate students, with popular programs in veterinary medicine (ranked first nationally), agriculture and environmental studies, biology, engineering, nursing and law. Placed on a spectrum, UC Davis is less a "party school" than a laid-back yet studious environment. It enjoys an increasing reputation as a well-respected academic powerhouse. Students hold an annual springtime "Picnic Day," which serves as a university-wide open house welcoming friends, family and community.</p>
+      <h3>Wild Turkeys / Animals</h3>
+      <p>While bicycles are the town's dominant ambassador, the town has a mostly loving relationship with several flocks of wild turkeys who also call the area home and meander frequently across busy roads and intersections. Some cars sport bumper stickers that feature the turkeys along with the phrase "Republic of Davis," which epitomizes the town's rather left-leaning, quirky mindset. Why does a turkey cross the road? No one in Davis asks, and it is considered a rite of passage and part of the local rhythms to tap one's fingers on the steering wheel waiting for an oblivious flock to make it safely to the sidewalk.</p>
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 12</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
+    <div class="si-img-col">
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/uc%20davis%20students.jpg" alt="UC Davis students">
+      </div>
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/farmersmarket_fe.webp" alt="Davis Farmers Market">
+      </div>
+      <div>
+        <img class="si-photo wide" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20turkeys.webp" alt="Wild turkeys in Davis">
+      </div>
+      <div class="si-callout"><p>Why does a turkey cross the road? No one in Davis asks.</p></div>
     </div>
-  </section>
+  </div>
+  <div class="si-special"></div>
+</section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 13 — CULTURAL COROLLARIES (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch13" class="si-ch-buffer cream">
-    <div class="si-ch-num">13</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 13</div>
-      <h2 class="si-buffer-title">Cultural Corollaries</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
-    </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 13</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
+<div class="si-ch-spacer"></div>
+<section id="ch13" class="si-ch cream">
+  <div class="si-ch-num">13</div>
+  <h2><a href="#ch13">Cultural Corollaries</a></h2>
+  <div class="si-body">
+    <p>DFCU can embrace a host of enduring American cultural threads as it creates a digital storytelling presence. These themes, which have yet to be embraced, include:</p>
 
-  <!-- ═══════════════════════════════════════════
-       CH 14 — CHARACTER OLYMPIAD (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer dark"></div>
-  <section id="ch14" class="si-ch-buffer dark">
-    <div class="si-ch-num">14</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 14</div>
-      <h2 class="si-buffer-title">Character Olympiad</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+    <div class="si-full-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/mythic%20west.png" alt="The mythic and open West">
     </div>
-    <div class="si-special" style="border-color:rgba(189,138,94,.2);background:rgba(189,138,94,.04);">
-      <div class="si-special-label" style="color:var(--gold);">Special Instructions — Chapter 14</div>
-      <div class="si-special-inner" style="color:rgba(250,246,240,.3);">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 15 — RECOMMENDATIONS (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch15" class="si-ch-buffer cream">
-    <div class="si-ch-num">15</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 15</div>
-      <h2 class="si-buffer-title">Recommendations</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
-    </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 15</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
+    <h3>The Open and Mythic West</h3>
+    <p>Davis is squarely a Western town and can telegraph visuals that speak to enduring tropes that can be stress-tested in modern settings. The character of the ethical cowboy, the notion of good abode, the fruits of hard work — intellectual and physical — along with an almost classic sense of community abound here. Present-day Davis residents reflect an optimism and earnestness that echoes an unironic spirit of pioneer possibility, unshackled by the past and drenched in empowering notions of opportunity, personal responsibility and collective aid.</p>
 
-  <!-- ═══════════════════════════════════════════
-       CH 16 — RELATED BUDGETS (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer sand"></div>
-  <section id="ch16" class="si-ch-buffer sand">
-    <div class="si-ch-num">16</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 16</div>
-      <h2 class="si-buffer-title">Related Budgets</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+    <div class="si-clearfix">
+      <div class="si-float-right">
+        <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/davis%20bikes%201967.jpeg" alt="Davis bicycles 1967">
+      </div>
+      <h3>Pragmatic Progressivism</h3>
+      <p>California, having birthed America's conservation movement, finds Davis as a practical advocate for sustainability and progressive policies. While such efforts are propelled primarily by UC Davis, the town's sizable faculty community reflects this overall progressive bent. But unlike UC Berkeley and other campuses where such emphasis often expresses itself in relentlessly political terms, UC Davis has retained a more practical and polytechnic emphasis. Its agricultural scientists have pioneered techniques that use less pesticides, advanced drip irrigation techniques and also pushed forward in the area of sustainable viticulture.</p>
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 16</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 17 — POSSIBLE TIMELINES (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer"></div>
-  <section id="ch17" class="si-ch-buffer cream">
-    <div class="si-ch-num">17</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 17</div>
-      <h2 class="si-buffer-title">Possible Timelines</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+    <div class="si-full-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/good%20abode%201.jpeg" alt="The good abode">
     </div>
-    <div class="si-special">
-      <div class="si-special-label">Special Instructions — Chapter 17</div>
-      <div class="si-special-inner">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
-    </div>
-  </section>
 
-  <!-- ═══════════════════════════════════════════
-       CH 18 — SUMMARY (buffer)
-       ═══════════════════════════════════════════ -->
-  <div class="si-ch-spacer dark"></div>
-  <section id="ch18" class="si-ch-buffer dark">
-    <div class="si-ch-num">18</div>
-    <div class="si-buffer-inner">
-      <div class="si-buffer-num">CHAPTER 18</div>
-      <h2 class="si-buffer-title">Summary</h2>
-      <p class="si-buffer-note">Content forthcoming — this chapter is reserved and awaiting copy.</p>
+    <h3>Quiet Optimism / "The Good Abode"</h3>
+    <p>In a time where cynicism abounds and economic trends are greatly impacting sentiment, Davis is a statistical outlier. Since a sizable portion of its community is comprised either of students or present/retired faculty, economic concerns are comparably muted. Students, while impacted by continually rising fees and cost of living, often have their exposure to changes mitigated by family. Faculty largely enjoy tenure or, in the case of retirees, substantial pensions that, when combined with a high rate of home ownership, leave them somewhat less impacted by mid-term economic shifts.</p>
+    <p>In short, Davis residents tend to admit, in a low-key and modest way common to the regional disposition, that they are living the good life, fulfilling the American concept of "good abode." It is, by comparison, a healthy, vibrant, optimistic community that seeks to see its values reaffirmed in the media created to compel them to act.</p>
+    <div class="si-callout"><p>Davis residents reflect an optimism that echoes an unironic spirit of pioneer possibility, personal responsibility and collective aid.</p></div>
+  </div>
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer dark"></div>
+<section id="ch14" class="si-ch" style="background:var(--ink);">
+  <div class="si-ch-num">14</div>
+  <h2 style="color:#fff;"><a href="#ch14" style="color:#fff;">Character Olympiad</a></h2>
+
+  <div class="si-body" style="color:var(--off-white);">
+    <p>We segmented characters into three Olympiads, each related to a target marketing objective. Overall, internal narratives did not score as highly as those available to DFCU within the community at large, in part because most DFCU staff lives outside of the area and, beyond interaction with the community inside of DFCU, are otherwise limited in their local interactions. By contrast, excellent characters were revealed within the community itself and also through the student loan storyline. Here is our summary.</p>
+  </div>
+
+  <div class="si-full-img">
+    <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/character%20olympiad%20v1.jpg" alt="Character Olympiad overview">
+  </div>
+
+  <!-- INTERNAL CHARACTERS -->
+  <h3 style="font-family:'DM Serif Display',serif;font-size:clamp(24px,2.8vw,36px);color:var(--gold);font-weight:400;margin:40px 0 28px;">Internal Characters</h3>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Marissa Mendez</h3>
+      <p class="si-character-score">Arc 9 | Action 9 | Access 9 | JSQ 8 | Score: 8.75</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>Marissa, 30, was the first of her immigrant family to attend college. She served as a DFCU fellow while completing her degree in finance and business administration, then joined DFCU upon graduation. She's worked there for five years. Marissa bikes to work each day. Her husband and seven-year-old son, Ricardo Jr., frequently enjoy time at parks and open space near their home along with their Golden Retriever, Sammy. Ricardo Jr. is on the Davis Swatters Little League team, and Marissa serves as assistant coach. Marissa is a big wellness advocate who believes she can be her best at everything by also taking care of herself. For her that means keeping a close relationship with her best friend, Sara, who lives nearby. They sometimes meet at the farmer's market or for a glass of wine after work. Marissa believes in her job as a teller at DFCU and hopes to join management. She sometimes staffs DFCU information booths at local events. She feels honored at being possibly selected to be a brand ambassador for DFCU.</p>
+      </div>
     </div>
-    <div class="si-special" style="border-color:rgba(189,138,94,.2);background:rgba(189,138,94,.04);">
-      <div class="si-special-label" style="color:var(--gold);">Special Instructions — Chapter 18</div>
-      <div class="si-special-inner" style="color:rgba(250,246,240,.3);">[ Reserved for special layout elements, callouts, or custom content for this chapter. ]</div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Mendez%20Marissa.jpg" alt="Marissa Mendez">
     </div>
-  </section>
+  </div>
+
+  <div class="si-body" style="color:var(--off-white);margin-bottom:40px;">
+    <p>Other employees screened for participation sported an aggregate score of no higher than 5.75, falling well below the minimum score of 7.76 to advisably greenlight an online film. Of note: Employee Bonnie Simpson (5.75) is highly integrated into the local community and could be a solid stills- or blog-based character. Kathryn Skinner (also 5.75) scored equally for the action created by her daily supercommute and various daily activities, which could also lend themselves well to static media. But her out-of-market home would not work well for a film.</p>
+  </div>
+
+  <!-- COMMUNITY CHARACTERS -->
+  <h3 style="font-family:'DM Serif Display',serif;font-size:clamp(24px,2.8vw,36px);color:var(--gold);font-weight:400;margin:0 0 28px;">Community Characters</h3>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Kristin Hughes</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 8 | Action 9 | Access 8 | JSQ 8 | Score: 8.25</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>A graduate of Davis High School, Kristin is a busy college student whose life and enthusiasm is both common and exceptional to the student body. She's a veterinary science undergraduate with an interest in specializing in care for both dogs and horses. Twice weekly, she plays volleyball as part of a noncompetitive student group. She also enjoys volunteering for environmental work around the area including activities like trash pickup. She has checking and savings accounts at DFCU and, while her interaction with the organization is casual and irregular, she has a positive opinion of DFCU and thinks supporting local businesses is important. She is pondering graduate school at UC Davis and, as the first person to attend college in her immediate family, believes its student loans may be key to her continuing her education.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Hughes%20Kristin.webp" alt="Kristin Hughes">
+    </div>
+  </div>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Mary Burch</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 8 | Action 8 | Access 8 | JSQ 8 | Score: 8</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>An avid cyclist, Mary has lived in Davis for 4 years with her husband, Robert. After Robert lost his job in Silicon Valley, the couple looked to locate in a comfortable community where they could invest the proceeds from the sale of their home into Mary's then-fledgling business. Since relocating, her company, Mary's Organics, has thrived. Now employing 12 people full time, Mary is a popular vendor at Davis's Farmer's Market, where she sells a variety of organic fruit, vegetables and a small variety of baked goods. Her cookies have gained a local following. Mary's daily errands take her in and around Davis as she visits her 15-acre spread on the outskirts of town, ferries supplies to and from the farm and arranges sales of her fruits and vegetables to area restaurants. She tries to wrap up each day by 4 p.m. so she can take a 90-minute bike ride in the countryside before she and Bob reunite for dinner.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Burch%20Mary.jpg" alt="Mary Burch">
+    </div>
+  </div>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Michael Hutchings</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 7 | Action 7 | Access 8 | JSQ 7 | Score: 7.25</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>Michael, a lifelong Davis resident, is a freelance graphic designer. DFCU staff suggested him because he has taken out two business loans during the course of his quirky web-based business, "Hutchings & Things." He and his rather hipster-inclined wife Imelda, an interior designer, have meticulously renovated their home to be a bit of Miami-style modernism. They enjoy an eclectic assortment of hobbies, from hosting dinner parties to playing croquet with their elderly neighbors. Michael also hikes in the nearby Sierras monthly and is a "Big Brother" to a 10-year-old boy, Wilson. All of this belies Michael's main appeal: He is the creator of a highly popular line of apparel and merchandise that feature Davis's trademark wild turkeys. His creations include a bumper sticker with "Republic of Davis" and a logo of a hapless turkey, along with variations that include aprons, mouse pads and phone cases. Michael is a perfectionist; he feels his drawing of the turkey isn't quite up to snuff and is intent on creating a 2.0 version. So he spends a bit of time following the turkeys around town and sketching them. Michael and Imelda financed their home through DFCU, and he speaks effusively about how DFCU looked positively on his application even though he was a freelancer.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/hutchings%20michael.jpg.webp" alt="Michael Hutchings">
+    </div>
+  </div>
+
+  <!-- STUDENT LOAN CHARACTERS -->
+  <h3 style="font-family:'DM Serif Display',serif;font-size:clamp(24px,2.8vw,36px);color:var(--gold);font-weight:400;margin:0 0 28px;">Student Loan Characters</h3>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Sara Allison</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 9 | Action 9 | Access 9 | JSQ 8 | Score: 8.75</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>Sara, a native of nearby Woodland, is a well-liked and well-known member of the UC Davis community. That's in part because Sara, who uses a wheelchair due to a car accident in her late teens, relies upon the help of Roscoe, her affable service dog who accompanies her throughout the day. It's common to see Sara and Roscoe moving swiftly through the heart of campus. Students have learned to not pet Roscoe but sometimes even bring treats for Sara to give to him. Sara, a plant science undergraduate, will complete her studies next June. She and Roscoe are seen at the farmer's market, studying at downtown coffee shops and even taking exercise strolls along its vaunted bike paths. Sara also aspires to push forward in competitive paraplegic archery. While UC Davis has no team for her to join, she practices solo in a field near her home and sometimes travels to competitive events in the Bay Area. Could she one day be on the USA Paraplegic Team? Few things seem to hold Sara and Roscoe back.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Allison%20Sarah.png" alt="Sara Allison">
+    </div>
+  </div>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Faith Velasquez</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 8 | Action 8 | Access 8 | JSQ 8 | Score: 8</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>Faith, 22, is a finance major at UC Davis. She is the first of her family to go to college and is able to do so thanks to an array of scholarships and federal loans. She says she felt highly empowered by opening her first checking account at DFCU; her family is largely unbanked and views financial institutions skeptically. That's part of the reason Faith feels motivated to major in finance — she wants to educate and uplift her community. She participates in monthly educational sessions held by Latinas United, a campus group of Mexican American majors in finance and related fields that aims to increase financial literacy in their community. Faith has a busy day that begins with a run through town. This year she's helping out with Davis Photosnaps, a group of photography enthusiasts making images to help the marketing efforts of local charities. Over a couple of months, she's making images at Davis Kite Works, which creates kites for underprivileged children. Faith journeys home monthly to see her grandmother, with whom she is close.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Velasquez%20Faith.jpg.webp" alt="Faith Velasquez">
+    </div>
+  </div>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Daniel Mahoney</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 8 | Action 8 | Access 8 | JSQ 8 | Score: 8</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>Dan is atypical around Davis in that he can often be spotted wearing apparel from Arizona State. That's because his son, Mike, is a track star at the school. Dan coaches track at Davis High, where Mike once studied. There are many home movies of Mike's progression from the earliest days of competition to him being coached by his father on the high school team. While Dan admits to having hoped Mike would attend UC Davis, Arizona's track team was far more advanced, which required Dan to take out a student loan to pay out-of-state tuition. Dan and his wife Marie fly to Arizona and other locations around the West frequently to see Mike compete. The close-knit family also welcomes Dan home at holidays, and Dan is involved in a long-distance relationship with his high school sweetheart, Dina, who is attending a local community college while working at Perk Coffee in the heart of downtown. Dan is more philosophical than the average undergraduate, perhaps due to his major — philosophy. He's unsure of what will come next.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Mahoney%20Dan.jpg.webp" alt="Daniel Mahoney">
+    </div>
+  </div>
+
+  <div class="si-character">
+    <div class="si-character-text">
+      <h3 style="color:#fff;">Clay Rivas</h3>
+      <p class="si-character-score" style="color:var(--light-brown);">Arc 7 | Action 6 | Access 5 | JSQ 8 | Score: 6.5</p>
+      <div class="si-body" style="color:var(--off-white);">
+        <p>Clay's score puts him at the lower end of viability but should nonetheless be considered as a character depending on the mix of our final choices. He's a marine biology graduate student who is involved in a novel effort to help spot ailing starfish, which can be indicative of the overall health of the marine environment. He's quite passionate about this and spends every moment he can snorkeling and diving to better learn about marine conditions. This includes frequent trips to the Pacific Ocean, where he often navigates tidepools either by himself or as part of a small group creating a data set to propel their investigation. A short piece that is focused on his concern for the environment and real-world work to that end can work in line with DFCU's brand pillars.</p>
+      </div>
+    </div>
+    <div class="si-character-img">
+      <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/Rivas%20Clay.jpg" alt="Clay Rivas">
+    </div>
+  </div>
+
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer"></div>
+<section id="ch15" class="si-ch cream">
+  <div class="si-ch-num">15</div>
+  <h2><a href="#ch15">Recommendations</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>We recommend DFCU greenlight a YouTube-centered digital storytelling campaign to promote growth in student loans and enhance its brand identity to relentlessly focus on regional traits. The area's strong regional characteristics point us toward media that is thoughtful, emotionally resonant and genuine, powering the sub-brand with voices that, like the area's produce itself, are regionally sourced.</p>
+      <h3>Film Trio: Student Loans</h3>
+      <p>Center marketing efforts on at least three digital short films to premiere throughout the "back to school" marketing cycle of early fall using the best characters revealed by the Story Inventory.</p>
+      <h3>Film Trio: Community Connections</h3>
+      <p>Because many DFCU employees live outside of the city, we recommend against focusing on several available internal narratives with one notable exception highlighted in the Story Inventory. Instead, we see more potential in using a suite of films to focus on community connections via membership, and for those member stories to be DFCU-adjacent in emphasis. We seek to feature people whose lives run through DFCU passively or actively but see the best chances for success in stories that do not force a connection or in any way invoke staging. Since DFCU's competitors are also yet to embrace any form of regional storytelling, the terrain is DFCU's to define, thereby enabling great freedom in approach.</p>
+      <div class="si-callout"><p>Digital stories can power a sub-brand with voices that, like the area's produce itself, are regionally sourced.</p></div>
+    </div>
+  </div>
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer sand"></div>
+<section id="ch16" class="si-ch sand">
+  <div class="si-ch-num">16</div>
+  <h2><a href="#ch16">Related Budgets</a></h2>
+  <div class="si-two no-img">
+    <div class="si-body">
+      <p>After identifying the best characters and story arcs available, related budgets are presented here for review in the weeks before filming begins.</p>
+      <p>Our budgeting process is highly unique to the digital storytelling space. Each is tailor-made to address the filming needs identified in favorable, available story arcs. Typically, digital film shorts can be filmed within a period of about six days and a somewhat standard template can be used as a basis. Often, we identify stories that could work well with additional filming, be it a few days or more. Clients are empowered to make selections that align with their desires and resources.</p>
+      <p>Derivatives are also added here, including the price of cutdowns, print collateral and additional marketing material that may be helpful.</p>
+      <div class="si-callout"><p>Clients are empowered to make selections that align with their desires and resources.</p></div>
+    </div>
+  </div>
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer"></div>
+<section id="ch17" class="si-ch cream">
+  <div class="si-ch-num">17</div>
+  <h2><a href="#ch17">Possible Timelines</a></h2>
+  <div class="si-body">
+    <p>A general timeline showing the duration of production and postproduction is platformed here. This timeline is redrawn after our clients make story selections. Each step of the process is reviewed to give clients complete understanding of when and how they will advise and make decisions that will guide the final product.</p>
+  </div>
+  <div class="si-full-img" style="margin-top:32px;">
+    <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/gantt%20chart%20story%20inventory%20v1.jpg" alt="Production timeline Gantt chart">
+  </div>
+  <div class="si-special"></div>
+</section>
+
+<div class="si-ch-spacer dark"></div>
+<section id="ch18" class="si-ch" style="background:var(--ink);">
+  <div class="si-ch-num">18</div>
+  <h2 style="color:#fff;"><a href="#ch18" style="color:#fff;">Summary</a></h2>
+  <div class="si-full-img">
+    <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/uc%20davis%20graduation.webp" alt="UC Davis graduation">
+  </div>
+  <div class="si-body" style="color:var(--off-white);margin-top:32px;">
+    <p>Our DFCU story inventory abounds with possibilities for great digital shorts that look to succeed due to a variety of factors.</p>
+    <p>One we would like to emphasize is the digital-native, highly literate characteristics of the service area. Research supports that this demographic is highly present online and also highly receptive to authentic, original storytelling. Davis residents and the UC Davis students who live among them are proud of their town and like to see it reflected in media. What's more, they have a strong history of supporting businesses that express their ties to the area. Students do not often see themselves in meaningful media and sometimes express a desire to be known by their nuances rather than simply as members of an amorphous student body. Connecting with them on the channels they watch and in the manner they desire is a smart recipe for growth.</p>
+    <p>DFCU may see an immediate uptick in services as a result. Regardless, emphasizing its local ties will strengthen its brand identity for years to come. Each year, nearly 10,000 first-year students come to town, while 8,000 graduates prepare to begin the first chapter of their professional lives. Telling the stories of these future-facing young people is a logical, pragmatic move.</p>
+    <p>We're excited to further examine the possibilities unearthed in this report and are deeply grateful to all DFCU staff and community members who made time for us.</p>
+    <div class="si-callout"><p>Residents have a strong history of supporting businesses that express their ties to the area.</p></div>
+  </div>
+  <div class="si-special"></div>
+</section>
 
   <div class="si-red-bar" style="margin-top:96px;"></div>
-
 </div><!-- /si-wrap -->
 </body>
 </html>
