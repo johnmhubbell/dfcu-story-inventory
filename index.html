@@ -573,7 +573,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--parchment);color:var(--in
   </div>
 
   <div class="si-full-img">
-    <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/character%20olympiad%20v1.jpg" alt="Character Olympiad overview">
+    <img class="si-photo" src="https://cdn.jsdelivr.net/gh/johnmhubbell/dfcu-story-inventory@main/images/character%20olympiad%20v1.jpeg" alt="Character Olympiad overview">
   </div>
 
   <!-- INTERNAL CHARACTERS -->
@@ -760,5 +760,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--parchment);color:var(--in
 
   <div class="si-red-bar" style="margin-top:96px;"></div>
 </div><!-- /si-wrap -->
+
+<script>
+// Auto-resize: tell the parent iframe our true height every 500ms
+// and on any resize event. This fixes the Squarespace iframe cutoff.
+function notifyHeight() {
+  var h = document.body.scrollHeight;
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: 'si-height', height: h }, '*');
+  }
+}
+// Fire on load + on any DOM/image changes
+window.addEventListener('load', notifyHeight);
+window.addEventListener('resize', notifyHeight);
+setInterval(notifyHeight, 800);
+</script>
 </body>
 </html>
